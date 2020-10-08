@@ -12,17 +12,20 @@ public class TestService {
 
     private final TestEntityRepo repo;
 
+    public void setValueToZero(){
+        repo.save(new TestEntity(1,0));
+    }
+
     @Transactional
-    public void testTransaction() throws InterruptedException {
+    public void modifyValue() throws InterruptedException {
+        // SELECT
         TestEntity entity = repo.findById(1).get();
-        log.info("Retrieved entity. Entity's value: {}", entity.getValue());
-        log.info("Sleeping for 10 secs...");
+
+        // 10초 동안 대기. 이 때 외부에서 값 변경
         Thread.sleep(10000);
-        log.info("Waking back up...");
-        int newValue = Integer.MIN_VALUE;
-        entity.setValue(newValue);
-        log.info("Changed value of entity's value column to {}", newValue);
-        log.info("Saving entity");
+
+        // 업데이트
+        entity.setValue(20);
     }
 
 }

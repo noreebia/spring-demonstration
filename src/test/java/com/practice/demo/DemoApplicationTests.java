@@ -17,7 +17,8 @@ class DemoApplicationTests {
     @Test
     public void jpaTest(){
         try{
-            testService.testTransaction();
+            testService.setValueToZero();
+            testService.modifyValue();
         } catch (Exception e){
             e.printStackTrace();
         }
